@@ -1,0 +1,167 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_map_bg"
+        android:orderInCategory="5"
+        app:showAsAction="never"
+        android:title="[Map] change background"/>
+
+    <item
+        android:id="@+id/action_toggle_cross_sign"
+        android:orderInCategory="10"
+        app:showAsAction="never"
+        android:title="[Map] show/hide cross sign"/>
+
+    <item
+        android:id="@+id/action_toggle_tile_animation"
+        android:orderInCategory="15"
+        app:showAsAction="never"
+        android:title="[Map] enable/disable tile animation"/>
+
+    <item
+        android:id="@+id/action_zoom_in"
+        android:orderInCategory="17"
+        app:showAsAction="never"
+        android:title="[Map] zoom in"/>
+
+    <item
+        android:id="@+id/action_zoom_out"
+        android:orderInCategory="18"
+        app:showAsAction="never"
+        android:title="[Map] zoom out"/>
+
+    <item
+        android:id="@+id/action_set_zoom"
+        android:orderInCategory="19"
+        app:showAsAction="never"
+        android:title="[Map] set zoom = 15"/>
+
+    <item
+        android:id="@+id/action_toggle_touch"
+        android:orderInCategory="20"
+        app:showAsAction="never"
+        android:title="[Map] enable/disable touch"/>
+
+    <item
+        android:id="@+id/action_toggle_scale_bar"
+        android:orderInCategory="22"
+        app:showAsAction="never"
+        android:title="[Map] show/hide scale bar"/>
+
+    <item
+        android:id="@+id/action_push_pin"
+        android:orderInCategory="25"
+        app:showAsAction="never"
+        android:title="[Pin] push pin"/>
+
+    <item
+        android:id="@+id/action_move_pin"
+        android:orderInCategory="30"
+        app:showAsAction="never"
+        android:title="[Pin] move pin"/>
+
+    <item
+        android:id="@+id/action_change_pin_icon"
+        android:orderInCategory="35"
+        app:showAsAction="never"
+        android:title="[Pin] change pin icon"/>
+
+    <item
+        android:id="@+id/action_bounce_pin"
+        android:orderInCategory="40"
+        app:showAsAction="never"
+        android:title="[Pin] animation Bounce"/>
+
+    <item
+        android:id="@+id/action_drop_pin"
+        android:orderInCategory="60"
+        app:showAsAction="never"
+        android:title="[Pin] animation Drop"/>
+
+    <item
+        android:id="@+id/action_toggle_pin_current_location"
+        android:orderInCategory="125"
+        app:showAsAction="never"
+        android:title="Toggle pin current location"/>
+
+    <item
+        android:id="@+id/action_bound"
+        android:orderInCategory="225"
+        app:showAsAction="never"
+        android:title="Bound"/>
+
+    <item
+        android:id="@+id/action_toggle_traffic"
+        android:orderInCategory="350"
+        app:showAsAction="never"
+        android:title="Toggle traffic"/>
+
+    <item
+        android:id="@+id/action_toggle_gas_station"
+        android:orderInCategory="475"
+        app:showAsAction="never"
+        android:title="Toggle gas station"/>
+
+    <item
+        android:id="@+id/action_toggle_track_user"
+        android:orderInCategory="490"
+        app:showAsAction="never"
+        android:title="Toggle track center"/>
+
+    <item
+        android:id="@+id/action_get_current_location"
+        android:orderInCategory="493"
+        app:showAsAction="never"
+        android:title="Get current location"/>
+
+    <item
+        android:id="@+id/action_toggle_update_location"
+        android:orderInCategory="495"
+        app:showAsAction="never"
+        android:title="Toggle update location"/>
+
+    <item
+        android:id="@+id/action_toggle_compass"
+        android:orderInCategory="497"
+        app:showAsAction="never"
+        android:title="Toggle compass"/>
+
+    <item
+        android:id="@+id/action_toggle_navigation"
+        android:orderInCategory="498"
+        app:showAsAction="never"
+        android:title="Navigation mode"/>
+
+    <item
+        android:id="@+id/action_clear_cache"
+        android:orderInCategory="499"
+        app:showAsAction="never"
+        android:title="Clear cache"/>
+
+    <item
+        android:id="@+id/action_jump"
+        android:orderInCategory="750"
+        app:showAsAction="never"
+        android:title="Jump zoom"/>
+
+    <item
+        android:id="@+id/action_toggle_event_and_camera"
+        android:orderInCategory="850"
+        app:showAsAction="never"
+        android:title="Toggle Event"/>
+
+    <item
+        android:id="@+id/action_go_to_simple_page"
+        android:orderInCategory="900"
+        app:showAsAction="never"
+        android:title="Simple"/>
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="1000"
+        app:showAsAction="never"
+        android:title="About"/>
+
+</menu>
