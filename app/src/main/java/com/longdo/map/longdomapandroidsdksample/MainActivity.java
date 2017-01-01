@@ -1,6 +1,7 @@
 package com.longdo.map.longdomapandroidsdksample;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,9 +10,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.longdo.api.IMapListener;
+import com.longdo.api.Line;
 import com.longdo.api.Map;
 import com.longdo.api.MapGLSurfaceView;
 import com.longdo.api.Pin;
+import com.longdo.api.Polygon;
+import com.longdo.api.type.MapLocation;
 
 public class MainActivity extends AppCompatActivity implements IMapListener{
 
@@ -20,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
     private Map map;
 
     private Pin lastPushedPin;
+    private Line lastPushedLine;
+    private Polygon lastPushedPolygon;
 
     //Control variables
 
@@ -42,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        // Map
         if(item.getItemId() == R.id.action_map_bg){
             map.setMapBackground(BitmapFactory.decodeResource(getResources(),R.drawable.map_bg));
         }else if(item.getItemId() == R.id.action_toggle_cross_sign){
@@ -58,8 +65,14 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
             map.setEnableTouch(!map.isEnableTouch());
         }else if(item.getItemId() == R.id.action_toggle_scale_bar){
             map.setDrawScaleBar(!map.isDrawScaleBar());
+        }else if(item.getItemId() == R.id.action_change_scale_bar_ui){
+            map.setScaleBarColor(Color.RED);
+            map.setScaleBarLineWidth(3);
+            map.setScaleBarTextSize(20);
+            map.setDrawScaleBar(true);
         }
 
+        // Pin
         else if(item.getItemId() == R.id.action_push_pin){
             lastPushedPin = createPin();
             map.pushPin(lastPushedPin);
@@ -78,6 +91,18 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
             map.pushPin(lastPushedPin);
         }
 
+        // Line
+        else if(item.getItemId() == R.id.action_push_line){
+            lastPushedLine = createLine();
+            map.addLine(lastPushedLine);
+        }
+
+        // Polygon
+        else if(item.getItemId() == R.id.action_push_polygon){
+            lastPushedPolygon = createPolygon();
+            map.pushPolygon(lastPushedPolygon);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -92,6 +117,21 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
 
     private Pin createPin() {
         return new Pin(map.getLocation(),this, R.drawable.pin,new PointF(0f,-0.5f));
+    }
+
+    private Line createLine() {
+        MapLocation loc = map.getLocation();
+        Line line = new Line(new MapLocation[]{loc,new MapLocation(loc.lon+0.05,loc.lat+0.05),new MapLocation(loc.lon+0.1,loc.lat-0.05)});
+        line.setWidth(10);
+        line.setColor(new float[]{1,0,0,1});
+        return line;
+    }
+
+    private Polygon createPolygon(){
+        MapLocation loc = map.getLocation();
+        Polygon polygon = new Polygon(new MapLocation[]{loc,new MapLocation(loc.lon+0.05,loc.lat+0.05),new MapLocation(loc.lon+0.1,loc.lat+0.05),new MapLocation(loc.lon+0.1,loc.lat)});
+        polygon.setColor(new float[]{0,1f,0,0.5f});
+        return polygon;
     }
 
     @Override

@@ -51,6 +51,12 @@
         android:title="[Map] show/hide scale bar"/>
 
     <item
+        android:id="@+id/action_change_scale_bar_ui"
+        android:orderInCategory="23"
+        app:showAsAction="never"
+        android:title="[Map] change scale bar"/>
+
+    <item
         android:id="@+id/action_push_pin"
         android:orderInCategory="25"
         app:showAsAction="never"
@@ -79,6 +85,18 @@
         android:orderInCategory="60"
         app:showAsAction="never"
         android:title="[Pin] animation Drop"/>
+
+    <item
+        android:id="@+id/action_push_line"
+        android:orderInCategory="80"
+        app:showAsAction="never"
+        android:title="[Line] push line"/>
+
+    <item
+        android:id="@+id/action_push_polygon"
+        android:orderInCategory="90"
+        app:showAsAction="never"
+        android:title="[Polygon] push polygon"/>
 
     <item
         android:id="@+id/action_toggle_pin_current_location"
@@ -151,12 +169,6 @@
         android:orderInCategory="850"
         app:showAsAction="never"
         android:title="Toggle Event"/>
-
-    <item
-        android:id="@+id/action_go_to_simple_page"
-        android:orderInCategory="900"
-        app:showAsAction="never"
-        android:title="Simple"/>
 
     <item
         android:id="@+id/action_about"
