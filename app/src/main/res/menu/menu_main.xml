@@ -57,6 +57,12 @@
         android:title="[Map] change scale bar"/>
 
     <item
+        android:id="@+id/action_map_listener"
+        android:orderInCategory="25"
+        app:showAsAction="never"
+        android:title="[Map] add listener"/>
+
+    <item
         android:id="@+id/action_push_pin"
         android:orderInCategory="25"
         app:showAsAction="never"
@@ -87,10 +93,22 @@
         android:title="[Pin] animation Drop"/>
 
     <item
+        android:id="@+id/action_pin_listener"
+        android:orderInCategory="62"
+        app:showAsAction="never"
+        android:title="[Pin] add listener"/>
+
+    <item
         android:id="@+id/action_push_line"
         android:orderInCategory="80"
         app:showAsAction="never"
         android:title="[Line] push line"/>
+
+    <item
+        android:id="@+id/action_line_listener"
+        android:orderInCategory="82"
+        app:showAsAction="never"
+        android:title="[Line] add listener"/>
 
     <item
         android:id="@+id/action_push_polygon"
@@ -98,77 +116,65 @@
         app:showAsAction="never"
         android:title="[Polygon] push polygon"/>
 
+    <!--<item
+        android:id="@+id/action_polygon_listener"
+        android:orderInCategory="92"
+        app:showAsAction="never"
+        android:title="[Polygon] add listener"/>-->
+
     <item
-        android:id="@+id/action_toggle_pin_current_location"
+        android:id="@+id/action_show_gas_station"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="[Tag] show gas station tag"/>
+
+    <item
+        android:id="@+id/action_get_current_location"
+        android:orderInCategory="120"
+        app:showAsAction="never"
+        android:title="[Location] current location"/>
+
+    <item
+        android:id="@+id/action_update_location"
         android:orderInCategory="125"
         app:showAsAction="never"
-        android:title="Toggle pin current location"/>
+        android:title="[Location] update location"/>
+
+    <item
+        android:id="@+id/action_lock_center"
+        android:orderInCategory="130"
+        app:showAsAction="never"
+        android:title="[Location] lock center"/>
+
+    <item
+        android:id="@+id/action_camera"
+        android:orderInCategory="140"
+        app:showAsAction="never"
+        android:title="[Camera] show camera"/>
+
+    <item
+        android:id="@+id/action_event"
+        android:orderInCategory="150"
+        app:showAsAction="never"
+        android:title="[Event] show event"/>
+
+    <item
+        android:id="@+id/action_clear_cache"
+        android:orderInCategory="160"
+        app:showAsAction="never"
+        android:title="[Cache] clear cache"/>
 
     <item
         android:id="@+id/action_bound"
         android:orderInCategory="225"
         app:showAsAction="never"
-        android:title="Bound"/>
+        android:title="[Advance] bound"/>
 
     <item
-        android:id="@+id/action_toggle_traffic"
-        android:orderInCategory="350"
-        app:showAsAction="never"
-        android:title="Toggle traffic"/>
-
-    <item
-        android:id="@+id/action_toggle_gas_station"
-        android:orderInCategory="475"
-        app:showAsAction="never"
-        android:title="Toggle gas station"/>
-
-    <item
-        android:id="@+id/action_toggle_track_user"
-        android:orderInCategory="490"
-        app:showAsAction="never"
-        android:title="Toggle track center"/>
-
-    <item
-        android:id="@+id/action_get_current_location"
-        android:orderInCategory="493"
-        app:showAsAction="never"
-        android:title="Get current location"/>
-
-    <item
-        android:id="@+id/action_toggle_update_location"
-        android:orderInCategory="495"
-        app:showAsAction="never"
-        android:title="Toggle update location"/>
-
-    <item
-        android:id="@+id/action_toggle_compass"
+        android:id="@+id/action_compass"
         android:orderInCategory="497"
         app:showAsAction="never"
-        android:title="Toggle compass"/>
-
-    <item
-        android:id="@+id/action_toggle_navigation"
-        android:orderInCategory="498"
-        app:showAsAction="never"
-        android:title="Navigation mode"/>
-
-    <item
-        android:id="@+id/action_clear_cache"
-        android:orderInCategory="499"
-        app:showAsAction="never"
-        android:title="Clear cache"/>
-
-    <item
-        android:id="@+id/action_jump"
-        android:orderInCategory="750"
-        app:showAsAction="never"
-        android:title="Jump zoom"/>
-
-    <item
-        android:id="@+id/action_toggle_event_and_camera"
-        android:orderInCategory="850"
-        app:showAsAction="never"
-        android:title="Toggle Event"/>
+        android:title="[Advance] enable compass"/>
 
     <item
         android:id="@+id/action_about"

@@ -1,15 +1,25 @@
 package com.longdo.map.longdomapandroidsdksample;
 
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.location.Location;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.longdo.api.ICacheListener;
+import com.longdo.api.IClickListener;
+import com.longdo.api.ILineListener;
+import com.longdo.api.ILocationListener;
 import com.longdo.api.IMapListener;
+import com.longdo.api.IMarker;
+import com.longdo.api.IPinListener;
+import com.longdo.api.IZoomListener;
 import com.longdo.api.Line;
 import com.longdo.api.Map;
 import com.longdo.api.MapGLSurfaceView;
@@ -17,10 +27,12 @@ import com.longdo.api.Pin;
 import com.longdo.api.Polygon;
 import com.longdo.api.type.MapLocation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity implements IMapListener{
 
     //UI references
-    private MapGLSurfaceView mapGlSurfaceView;
     private Map map;
 
     private Pin lastPushedPin;
@@ -70,6 +82,55 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
             map.setScaleBarLineWidth(3);
             map.setScaleBarTextSize(20);
             map.setDrawScaleBar(true);
+        }else if(item.getItemId() == R.id.action_map_listener){
+            map.setClickListener(new IClickListener() {
+                @Override
+                public void onClick(MapLocation mapLocation, int i) {
+                    Toast.makeText(MainActivity.this,"map click",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onDoubleClick(MapLocation mapLocation, int i) {
+                    Toast.makeText(MainActivity.this,"map long click",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onLongClick(Bundle bundle) {
+                    Toast.makeText(MainActivity.this,"map double click",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            map.setZoomListener(new IZoomListener() {
+                @Override
+                public void preZoom(int i) {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this,"zoom in",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void postZoom(int i) {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this,"zoom out",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void finishZoomAnimation(int i) {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this,"finish animation",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
         }
 
         // Pin
@@ -89,18 +150,202 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
             lastPushedPin = createPin();
             lastPushedPin.setAnimation(Pin.ANIMATION_DROP);
             map.pushPin(lastPushedPin);
+        }else if(item.getItemId() == R.id.action_pin_listener){
+            if(!hasLastPin()) return true;
+            lastPushedPin.setListener(new IPinListener() {
+                @Override
+                public boolean onPinClick(Pin pin, Pin[] pins) {
+                    Toast.makeText(MainActivity.this,"pin click",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                @Override
+                public boolean onLongClickPin(Pin pin, Pin[] pins) {
+                    Toast.makeText(MainActivity.this,"pin long click",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                @Override
+                public boolean onPinDoubleClick(Pin pin, Pin[] pins) {
+                    Toast.makeText(MainActivity.this,"pin double click",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
         }
 
         // Line
         else if(item.getItemId() == R.id.action_push_line){
             lastPushedLine = createLine();
             map.addLine(lastPushedLine);
+        }else if(item.getItemId() == R.id.action_line_listener){
+            if(!hasLastLine()) return true;
+            lastPushedLine.setListener(new ILineListener() {
+                @Override
+                public boolean onLineClick(Line line, Line[] lines) {
+                    Toast.makeText(MainActivity.this,"line click",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                @Override
+                public boolean onLineLongClick(Line line, Line[] lines) {
+                    Toast.makeText(MainActivity.this,"line long click",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                @Override
+                public boolean onLineDoubleClick(Line line, Line[] lines) {
+                    Toast.makeText(MainActivity.this,"line double click",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
         }
 
         // Polygon
         else if(item.getItemId() == R.id.action_push_polygon){
             lastPushedPolygon = createPolygon();
             map.pushPolygon(lastPushedPolygon);
+        }
+        /*
+        else if(item.getItemId() == R.id.action_polygon_listener){
+            if(!hasLastPolygon()) return true;
+        }
+        */
+
+        // Tag
+        else if(item.getItemId() == R.id.action_show_gas_station){
+            map.addTag("gas_station");
+            map.setTagListener(new IPinListener() {
+                @Override
+                public boolean onPinClick(Pin pin, Pin[] pins) {
+                    Toast.makeText(MainActivity.this,pin.getTag(),Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                @Override
+                public boolean onLongClickPin(Pin pin, Pin[] pins) {
+                    Toast.makeText(MainActivity.this,pin.getTag(),Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                @Override
+                public boolean onPinDoubleClick(Pin pin, Pin[] pins) {
+                    Toast.makeText(MainActivity.this,pin.getTag(),Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
+        }
+
+        // Location
+        else if(item.getItemId() == R.id.action_get_current_location) {
+            map.setLocationListener(new ILocationListener() {
+                @Override
+                public void onGetCurrentLocation(MapLocation mapLocation, Location location) {
+                    map.setLocation(mapLocation);
+                    Toast.makeText(MainActivity.this, "speed: " + location.getSpeed() + "meters/second", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            map.getCurrentLocation();
+        }
+        else if(item.getItemId() == R.id.action_update_location) {
+            map.setLocationListener(new ILocationListener() {
+                @Override
+                public void onGetCurrentLocation(MapLocation mapLocation, Location location) {
+                    map.setLocation(mapLocation,true);
+                    Toast.makeText(MainActivity.this, "speed: " + location.getSpeed() + "meters/second", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            map.setMode((short) (map.getMode() | Map.MODE_UPDATING_LOCATION));
+        }else if(item.getItemId() == R.id.action_lock_center) {
+            map.setMode((short) (map.getMode() | Map.MODE_TRACK_USER));
+        }
+
+        // Camera
+        else if(item.getItemId() == R.id.action_camera) {
+            IPinListener listener = new IPinListener() {
+                @Override
+                public boolean onPinClick(Pin pin, Pin[] pins) {
+                    Toast.makeText(MainActivity.this,pin.getTag(),Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                @Override
+                public boolean onLongClickPin(Pin pin, Pin[] pins) {
+                    return false;
+                }
+
+                @Override
+                public boolean onPinDoubleClick(Pin pin, Pin[] pins) {
+                    return false;
+                }
+            };
+
+            map.overLaysLoad(Map.OVERLAYS.CAMERA,listener,8,Map.MAX_ZOOM_LEVEL);
+        }
+
+        // Event
+        else if(item.getItemId() == R.id.action_event) {
+            IPinListener listener = new IPinListener() {
+                @Override
+                public boolean onPinClick(Pin pin, Pin[] pins) {
+                    Toast.makeText(MainActivity.this,pin.getTag(),Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                @Override
+                public boolean onLongClickPin(Pin pin, Pin[] pins) {
+                    return false;
+                }
+
+                @Override
+                public boolean onPinDoubleClick(Pin pin, Pin[] pins) {
+                    return false;
+                }
+            };
+
+            map.overLaysLoad(Map.OVERLAYS.EVENT,listener,8,Map.MAX_ZOOM_LEVEL);
+        }
+
+        // Cache
+        else if(item.getItemId() == R.id.action_clear_cache) {
+            map.setCacheListener(new ICacheListener() {
+                @Override
+                public void onFinishClearCache(final long l) {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this,"cache size: " + (l/1000000) + "MB",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onFinishCheckCacheSize(long l) {
+
+                }
+            });
+
+            map.clearCache(true);
+        }
+
+        // Advance
+        else if(item.getItemId() == R.id.action_bound) {
+            if(map.getAllPin().length < 3){
+                Toast.makeText(MainActivity.this,"Push at least 3 pins",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                ArrayList<IMarker> pins = new ArrayList<>();
+                pins.addAll(Arrays.asList(map.getAllPin()));
+                map.bound(pins);
+            }
+        }else if(item.getItemId() == R.id.action_compass) {
+            map.setMode((short) (map.getMode() | Map.MODE_COMPASS));
+        }
+
+
+        else if(item.getItemId() == R.id.action_about) {
+            Toast.makeText(MainActivity.this,"SDK version: " + Map.getVersion(),Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -114,6 +359,26 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
 
         return true;
     }
+
+    private boolean hasLastLine() {
+        if(lastPushedLine == null){
+            Toast.makeText(this,"Add line first",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    /*
+    private boolean hasLastPolygon() {
+        if(lastPushedPolygon == null){
+            Toast.makeText(this,"Add polygon first",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+    */
 
     private Pin createPin() {
         return new Pin(map.getLocation(),this, R.drawable.pin,new PointF(0f,-0.5f));
@@ -137,5 +402,23 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
     @Override
     public void onMapCreated(Map map) {
         this.map = map;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == Map.REQUEST_LOCATION_PERMISSION_REQUEST_CODE && grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            map.getCurrentLocation();
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onPause() {
+        if(map != null){
+            map.setMode((short) (map.getMode() & ~Map.MODE_UPDATING_LOCATION));
+            map.cancelGetCurrentLocation();
+        }
+        super.onPause();
     }
 }
