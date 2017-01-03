@@ -1,7 +1,9 @@
 package com.longdo.map.longdomapandroidsdksample;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.location.Location;
@@ -28,6 +30,9 @@ import com.longdo.api.MapGLSurfaceView;
 import com.longdo.api.Pin;
 import com.longdo.api.Polygon;
 import com.longdo.api.type.MapLocation;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -295,7 +300,16 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
             IPinListener listener = new IPinListener() {
                 @Override
                 public boolean onPinClick(Pin pin, Pin[] pins) {
-                    Toast.makeText(MainActivity.this,pin.getTag(),Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject data = new JSONObject(pin.getTag());
+                        Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+                        intent.putExtra(CameraActivity.VDO_URL,data.getString("vdourl"));
+                        intent.putExtra(CameraActivity.CAMERA_NAME,data.getString("title"));
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+
                     return true;
                 }
 

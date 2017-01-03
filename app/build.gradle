@@ -39,4 +39,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:9.6.1'
     compile 'com.google.android.gms:play-services-appindexing:9.6.1'
     compile(name: 'LongdoMapAndroidSDK_v0.2.4', ext: 'aar')
+    compile(name: 'mjpegviewer_v0.0.3', ext: 'aar')
 }
