@@ -20,7 +20,9 @@ import com.longdo.api.IMapListener;
 import com.longdo.api.IMarker;
 import com.longdo.api.IPinListener;
 import com.longdo.api.IZoomListener;
+import com.longdo.api.Layer;
 import com.longdo.api.Line;
+import com.longdo.api.LongdoLayer;
 import com.longdo.api.Map;
 import com.longdo.api.MapGLSurfaceView;
 import com.longdo.api.Pin;
@@ -210,6 +212,33 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
             if(!hasLastPolygon()) return true;
         }
         */
+
+        // Layer
+        else if(item.getItemId() == R.id.action_add_layer){
+            // WMS Layer
+            Layer wmsLayer = new Layer(this,"bluemarble_terrain",Layer.LAYER_TYPE_WMS,0,"https://ms.longdo.com/mapproxy/service",1,20);
+
+            /* TMS Layer
+            Layer tmsLayer = new Layer(this,"bluemarble_terrain",Layer.LAYER_TYPE_TMS,0,"https://ms.longdo.com/mapproxy/tms/1.0.0/bluemarble_terrain/EPSG3857",1,20);
+            Hashtable<String,String> options = new Hashtable<>();
+            options.put("zoom-offset","-1");
+            tmsLayer.setOptions(options);
+             */
+
+            /* WMTS Layer
+            Layer wmtsLayer = new Layer(this,"bluemarble_terrain",Layer.LAYER_TYPE_WMTS_REST,0,"https://ms.longdo.com/mapproxy/wmts",1,20);
+             */
+
+            map.addLayer(wmsLayer);
+        }
+        else if(item.getItemId() == R.id.action_add_longdo_layer){
+            LongdoLayer layer = new LongdoLayer(this,"gray",0,1,20);
+            layer.setTransparent(true);
+            map.setBase(layer);
+        }
+        else if(item.getItemId() == R.id.action_add_custom_layer){
+            map.addLayer(new CustomLayer(this));
+        }
 
         // Tag
         else if(item.getItemId() == R.id.action_show_gas_station){
