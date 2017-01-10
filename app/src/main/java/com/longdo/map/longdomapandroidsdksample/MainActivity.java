@@ -374,14 +374,9 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
 
         // Advance
         else if(item.getItemId() == R.id.action_bound) {
-            if(map.getAllPin().length < 3){
-                Toast.makeText(MainActivity.this,"Push at least 3 pins",Toast.LENGTH_SHORT).show();
-            }
-            else{
-                ArrayList<IMarker> pins = new ArrayList<>();
-                pins.addAll(Arrays.asList(map.getAllPin()));
-                map.bound(pins);
-            }
+            ArrayList<IMarker> pins = new ArrayList<>();
+            pins.addAll(Arrays.asList(map.getAllPin()));
+            map.bound(pins);
         }else if(item.getItemId() == R.id.action_compass) {
             map.setMode((short) (map.getMode() | Map.MODE_COMPASS));
         }
