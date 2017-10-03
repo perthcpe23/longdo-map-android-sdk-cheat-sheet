@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LongdoMapAndroidSDKSample.iml" filepath="$PROJECT_DIR$/LongdoMapAndroidSDKSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/longdo-map-android-sdk-cheat-sheet.iml" filepath="$PROJECT_DIR$/longdo-map-android-sdk-cheat-sheet.iml" />
     </modules>
   </component>
 </project>

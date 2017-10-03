@@ -3,13 +3,12 @@ package com.longdo.map.longdomapandroidsdksample;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.graphics.Camera;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -31,7 +30,6 @@ import com.longdo.api.Pin;
 import com.longdo.api.Polygon;
 import com.longdo.api.type.MapLocation;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
