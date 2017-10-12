@@ -452,9 +452,16 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
     @Override
     protected void onPause() {
         if(map != null){
-            map.setMode((short) (map.getMode() & ~Map.MODE_UPDATING_LOCATION));
-            map.cancelGetCurrentLocation();
+            map.onPause();
         }
         super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if(map != null){
+            map.onResume();
+        }
+        super.onResume();
     }
 }
