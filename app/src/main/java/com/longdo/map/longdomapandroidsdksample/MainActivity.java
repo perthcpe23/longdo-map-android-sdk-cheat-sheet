@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
 
         // Location
         else if(item.getItemId() == R.id.action_get_current_location) {
-            map.setLocationListener(new ILocationListener() {
+            map.addLocationListener(new ILocationListener() {
                 @Override
                 public void onGetCurrentLocation(MapLocation mapLocation, Location location) {
                     map.setLocation(mapLocation);
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements IMapListener{
             map.getCurrentLocation();
         }
         else if(item.getItemId() == R.id.action_update_location) {
-            map.setLocationListener(new ILocationListener() {
+            map.addLocationListener(new ILocationListener() {
                 @Override
                 public void onGetCurrentLocation(MapLocation mapLocation, Location location) {
                     map.setLocation(mapLocation,true);
